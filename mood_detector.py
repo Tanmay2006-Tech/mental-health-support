@@ -5,7 +5,7 @@ class MoodDetector:
     """
     
     def __init__(self):
-        # Define mood keywords for detection
+        
         self.mood_keywords = {
             'happy': ['happy', 'joy', 'excited', 'great', 'wonderful', 'good', 'glad', 'pleased',
                       'delighted', 'content', 'cheerful', 'thrilled', 'fantastic', 'excellent'],
@@ -26,7 +26,7 @@ class MoodDetector:
                          'homework', 'tomorrow', 'due']
         }
         
-        # Context-specific triggers
+        
         self.context_keywords = {
             'academic': ['exam', 'test', 'quiz', 'study', 'homework', 'assignment', 'project', 
                          'paper', 'essay', 'class', 'course', 'school', 'college', 'university', 
@@ -39,7 +39,7 @@ class MoodDetector:
                             'partner', 'girlfriend', 'boyfriend', 'spouse', 'family', 'parent']
         }
         
-        # Default mood if no specific mood is detected
+
         self.default_mood = 'neutral'
     
     def detect_mood(self, text):
@@ -56,7 +56,7 @@ class MoodDetector:
         """
         text = text.lower()
         
-        # Check for each mood's keywords in the text
+        
         mood_scores = {}
         for mood, keywords in self.mood_keywords.items():
             score = 0
@@ -66,7 +66,7 @@ class MoodDetector:
             if score > 0:
                 mood_scores[mood] = score
         
-        # Check for context keywords
+        
         context_scores = {}
         for context, keywords in self.context_keywords.items():
             score = 0
@@ -76,12 +76,12 @@ class MoodDetector:
             if score > 0:
                 context_scores[context] = score
         
-        # Get the mood with highest score
+        
         detected_mood = self.default_mood
         if mood_scores:
             detected_mood = max(mood_scores, key=mood_scores.get)
         
-        # Get the context with highest score, or None if none found
+        
         detected_context = None
         if context_scores:
             detected_context = max(context_scores, key=context_scores.get)
