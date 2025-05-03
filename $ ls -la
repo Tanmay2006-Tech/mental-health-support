@@ -1,0 +1,18 @@
+total 1024
+drwxr-xr-x 1 runner runner    312 May  3 04:27 .
+drwxrwxrwx 1 runner runner     66 May  3 04:23 ..
+-rw-r--r-- 1 runner runner   5010 May  3 04:13 app.py
+drwxr-xr-x 1 runner runner     46 May  3 04:10 attached_assets
+drwxr-xr-x 1 runner runner     16 May  3 03:57 .cache
+-rw-r--r-- 1 runner runner 853675 May  3 04:09 generated-icon.png
+drwxr-xr-x 1 runner runner    144 May  3 04:27 .git
+drwxr-xr-x 1 runner runner     10 May  3 03:55 .local
+-rw-r--r-- 1 runner runner   4228 May  3 04:11 mood_detector.py
+drwxr-xr-x 1 runner runner    126 May  3 04:27 __pycache__
+-rw-r--r-- 1 runner runner    194 May  3 04:11 pyproject.toml
+drwxr-xr-x 1 runner runner    102 May  3 03:57 .pythonlibs
+-rw-r--r-- 1 runner runner    585 May  3 04:11 .replit
+-rw-r--r-- 1 runner runner  15697 May  3 04:27 response_generator.py
+drwxr-xr-x 1 runner runner     22 May  3 03:58 .streamlit
+drwxr-xr-x 1 runner runner     20 May  3 04:11 .upm
+-rw-r--r-- 1 runner runner 147154 May  3 04:11 uv.lock
