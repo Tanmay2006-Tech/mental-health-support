@@ -7,6 +7,11 @@ import os
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
+
+if not openai.api_key:
+    st.error("OpenAI API key is missing. Please set the 'OPENAI_API_KEY' environment variable.")
+
+    
 st.set_page_config(page_title="Mood-Aware Chatbot", page_icon="💬")
 st.title("Mood-Aware Chatbot 🤖")
 
@@ -37,14 +42,15 @@ if user_input:
 
     
     if not bot_response.strip():
-        response = openai.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ]
-        )
-        bot_response = response.choices[0].message.content
+        try:
+            response = openai.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[{"role": m["role"], "content": m["content"]} for m in st.session_state.messages]
+            )
+            bot_response = response.choices[0].message['content']
+        except openai.error.OpenAIError as e:
+            st.error(f"An error occurred with the OpenAI API: {e}")
+            bot_response = "Sorry, I'm having trouble right now. Please try again later."
 
     
     st.session_state.messages.append({"role": "assistant", "content": bot_response})
