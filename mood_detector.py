@@ -1,89 +1,60 @@
 class MoodDetector:
     """
-    A simple mood detection system that identifies emotions from text
-    using keyword matching.
+    A simplified mood detection system that identifies emotions from text
+    using keyword matching for both mood and context.
     """
     
     def __init__(self):
-        
+        # Define mood and context keywords
         self.mood_keywords = {
-            'happy': ['happy', 'joy', 'excited', 'great', 'wonderful', 'good', 'glad', 'pleased',
-                      'delighted', 'content', 'cheerful', 'thrilled', 'fantastic', 'excellent'],
-                      
-            'sad': ['sad', 'unhappy', 'depressed', 'down', 'blue', 'miserable', 'upset',
-                    'disappointed', 'despair', 'grief', 'sorrow', 'gloomy', 'heartbroken'],
-                    
-            'anxious': ['anxious', 'worried', 'nervous', 'uneasy', 'afraid', 'fear', 'scared',
-                        'frightened', 'panic', 'stress', 'tense', 'concerned', 'apprehensive',
-                        'exam', 'test', 'presentation', 'interview', 'deadline'],
-                        
-            'angry': ['angry', 'mad', 'annoyed', 'frustrated', 'irritated', 'furious', 'rage',
-                      'outraged', 'hostile', 'bitter', 'resentful', 'upset', 'irate'],
-                      
-            'stressed': ['stressed', 'overwhelmed', 'pressure', 'burden', 'strain', 'tension',
-                         'exhausted', 'tired', 'drained', 'burnt out', 'overworked', 'busy',
-                         'deadline', 'too much', 'assignment', 'project', 'exam', 'test', 'study',
-                         'homework', 'tomorrow', 'due']
+            'happy': ['happy', 'joy', 'excited', 'great', 'wonderful', 'good', 'glad', 'pleased'],
+            'sad': ['sad', 'unhappy', 'depressed', 'down', 'blue', 'miserable'],
+            'angry': ['angry', 'mad', 'annoyed', 'frustrated', 'irritated'],
+            'neutral': []  # No keywords for neutral, used as a fallback
         }
-        
         
         self.context_keywords = {
-            'academic': ['exam', 'test', 'quiz', 'study', 'homework', 'assignment', 'project', 
-                         'paper', 'essay', 'class', 'course', 'school', 'college', 'university', 
-                         'grade', 'professor', 'teacher', 'lecture', 'semester', 'final'],
-            'work': ['job', 'work', 'boss', 'meeting', 'project', 'deadline', 'presentation', 
-                    'client', 'report', 'interview', 'promotion', 'career', 'office', 'colleague'],
-            'health': ['sick', 'ill', 'doctor', 'pain', 'hurt', 'hospital', 'health', 'disease', 
-                      'symptom', 'medication', 'medicine', 'treatment', 'diagnosis', 'recovery'],
-            'relationship': ['friend', 'breakup', 'date', 'relationship', 'marriage', 'divorce', 
-                            'partner', 'girlfriend', 'boyfriend', 'spouse', 'family', 'parent']
+            'academic': ['exam', 'test', 'study', 'homework', 'assignment'],
+            'work': ['job', 'work', 'boss', 'meeting', 'project'],
+            'health': ['sick', 'ill', 'doctor', 'pain', 'hospital'],
+            'relationship': ['friend', 'breakup', 'date', 'marriage', 'partner'],
+            'neutral': []  # No keywords for neutral context
         }
-        
 
-        self.default_mood = 'neutral'
-    
-    def detect_mood(self, text):
+    def detect_mood(self, user_input):
         """
-        Detects the mood from the provided text
+        Detects the mood and context from the provided text input.
         
         Args:
-            text (str): The text input from the user
+            user_input (str): The text input from the user
             
         Returns:
             tuple: (mood, context) where:
-                mood: str - the detected mood, or 'neutral' if none detected
-                context: str - the detected context or None if none detected
+                mood (str): The detected mood, or 'neutral' if none detected
+                context (str): The detected context, or 'neutral' if none detected
         """
-        text = text.lower()
+        user_input = user_input.lower()  # Convert the text to lowercase for matching
         
+        # Initialize mood and context scores
+        mood_scores = {mood: 0 for mood in self.mood_keywords}
+        context_scores = {context: 0 for context in self.context_keywords}
         
-        mood_scores = {}
+        # Score mood
         for mood, keywords in self.mood_keywords.items():
-            score = 0
             for keyword in keywords:
-                if keyword in text.split() or f" {keyword} " in f" {text} ":
-                    score += 1
-            if score > 0:
-                mood_scores[mood] = score
+                if keyword in user_input:
+                    mood_scores[mood] += 1
         
-        
-        context_scores = {}
+        # Score context
         for context, keywords in self.context_keywords.items():
-            score = 0
             for keyword in keywords:
-                if keyword in text.split() or f" {keyword} " in f" {text} ":
-                    score += 1
-            if score > 0:
-                context_scores[context] = score
+                if keyword in user_input:
+                    context_scores[context] += 1
         
+        # Detect the mood with the highest score
+        detected_mood = max(mood_scores, key=mood_scores.get, default='neutral')
         
-        detected_mood = self.default_mood
-        if mood_scores:
-            detected_mood = max(mood_scores, key=mood_scores.get)
+        # Detect the context with the highest score
+        detected_context = max(context_scores, key=context_scores.get, default='neutral')
         
-        
-        detected_context = None
-        if context_scores:
-            detected_context = max(context_scores, key=context_scores.get)
-            
         return detected_mood, detected_context
