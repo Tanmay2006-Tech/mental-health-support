@@ -7,7 +7,7 @@ class ResponseGenerator:
     """
     
     def __init__(self):
-        # Responses for different moods with emojis
+        
         self.mood_responses = {
             'happy': [
                 "I'm glad to hear you're feeling happy! That's wonderful! 😊",
@@ -53,7 +53,7 @@ class ResponseGenerator:
             ]
         }
         
-        # Context-specific responses with emojis
+       
         self.context_responses = {
             'academic': [
                 "Exams can be stressful. Have you tried breaking your study sessions into smaller chunks with breaks in between? ⏱️",
@@ -85,7 +85,7 @@ class ResponseGenerator:
             ]
         }
         
-        # Motivational quotes for the "Give me a quote" button with emojis
+        
         self.motivational_quotes = [
             "✨ The only way to do great work is to love what you do. — Steve Jobs",
             "🌟 Believe you can and you're halfway there. — Theodore Roosevelt",
@@ -104,7 +104,7 @@ class ResponseGenerator:
             "🌠 It always seems impossible until it's done. — Nelson Mandela"
         ]
         
-        # Exam and study specific quotes with emojis
+        
         self.academic_quotes = [
             "🎓 Education is the passport to the future, for tomorrow belongs to those who prepare for it today. — Malcolm X",
             "🔍 The expert in anything was once a beginner. — Helen Hayes",
@@ -118,7 +118,7 @@ class ResponseGenerator:
             "🚀 You don't have to be great to start, but you have to start to be great. — Zig Ziglar"
         ]
         
-        # Relaxation tips for the "Relaxation tips" button with emojis
+    
         self.relaxation_tips = [
             "🧘‍♀️ Try the 4-7-8 breathing technique: Inhale for 4 seconds, hold for 7 seconds, exhale for 8 seconds. Repeat several times.",
             "💆‍♂️ Progressive muscle relaxation: Tense and then relax each muscle group in your body, starting from your toes and working upward.",
@@ -137,7 +137,7 @@ class ResponseGenerator:
             "👫 Connect with a supportive friend or family member. Social connection is a powerful stress reliever."
         ]
         
-        # Study-specific relaxation tips with emojis
+        
         self.study_tips = [
             "⏱️ Try the Pomodoro Technique: study for 25 minutes, then take a 5-minute break. After 4 cycles, take a longer 15-30 minute break.",
             "🪑 Create a dedicated study space that's comfortable, well-lit, and free from distractions.",
@@ -167,7 +167,7 @@ class ResponseGenerator:
         Returns:
             str: A response appropriate for the mood and context
         """
-        # Special case for academic stress related to exams
+        
         if context == 'academic' and (mood == 'stressed' or mood == 'anxious'):
             responses = [
                 "Having an exam coming up can definitely be stressful. Remember to take breaks and practice self-care while studying. 📚✨",
@@ -178,15 +178,15 @@ class ResponseGenerator:
             ]
             return random.choice(responses)
         
-        # First check if we have a context-specific response
+        
         if context and context in self.context_responses:
             return random.choice(self.context_responses[context])
         
-        # Otherwise, fall back to the general mood response
+        
         if mood in self.mood_responses:
             return random.choice(self.mood_responses[mood])
         
-        # Default to neutral if no mood matches
+        
         return random.choice(self.mood_responses['neutral'])
     
     def get_motivational_quote(self, context=None):
